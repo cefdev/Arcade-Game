@@ -1,3 +1,10 @@
+// Canva's blocks width and height
+let blockWidth, blockHeight, canvasWidth, canvasHeight;
+blockWidth = 101;
+blockHeight = 83;
+canvasWidth = 505;
+canvasHeight = 606;
+
 // Enemies our player must avoid
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
@@ -17,6 +24,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if ( this.x > canvasWidth) {
+        this.x = -100 * Math.floor(Math.random() * 4) + 1;
+    } else {
+        this.x += (200 * dt);
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -45,26 +57,26 @@ Player.prototype.render = function()  {
 };
 
 Player.prototype.handleInput = function(route) {
-    if (route === "up") {
-        this.y -= 80;
-    } else if (route === "down") {
-        this.y += 80;
-    } else if (route === "left") {
-        this.x -= 100;
-    } else if (route === "right") {
-        this.x += 100;
+    if (route === "up" && this.y - blockHeight > 0 - player.height) {
+        this.y -= blockHeight;
+    } else if (route === "down" && this.y + blockHeight < canvasHeight - (blockWidth * 2)) {
+        this.y += blockHeight;
+    } else if (route === "left" && this.x - blockWidth >= 0) {
+        this.x -= blockWidth;
+    } else if (route === "right" && this.x + blockWidth < canvasWidth) {
+        this.x += blockWidth;
     }
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-const enemyPosition = [40, 130 ,220]
-const allEnemies = enemyPosition.map((enemyPositionY, index) => {
+const allEnemies = [60, 140 ,220].map((enemyPositionY, index) => {
     return new Enemy((-100 * (index + 1)), enemyPositionY)
 });
 
-const player = new Player(200, 375);
+
+const player = new Player(205, 375);
 
 
 // This listens for key presses and sends the keys to your
