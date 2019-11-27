@@ -14,6 +14,7 @@ var Enemy = function(x, y) {
     this.y = y;
     this.width = 100;
     this.height = 70;
+    this.speed = (Math.random() + 1) * 1 * 200;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -25,10 +26,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if ( this.x > canvasWidth) {
-        this.x = -100 * Math.floor(Math.random() * 4) + 1;
+    if (this.x < canvasWidth) {
+        this.x += this.speed * (dt);
     } else {
-        this.x += (200 * dt);
+        this.x = -200;
     }
 
     // Check collision between Enemy and Player
@@ -36,10 +37,12 @@ Enemy.prototype.update = function(dt) {
         // Reset player's position
         player.x = 205;
         player.y = 375;
+
         // Subtract 1 from score
         if (score > 0) {
             score --;
         }
+
         // Update score UI
         document.querySelector(".score").textContent = score;
     }

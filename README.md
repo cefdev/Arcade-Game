@@ -1,19 +1,17 @@
 # Classic Arcade Game Clone Project
 
-## Table of Contents
 
-- [Instructions](#instructions)
-- [Contributing](#contributing)
+## How to play
+1. Open the index.html in your browser.
+2. Use your keyboard arrows to move the character left, right, down and up.
+3. Try to reach the water area without colliding into an enemy bug on the road.
+4. Each time you reach the water you will get +1 point.
+5. Avoid hitting enemies as they will minus your score points.
 
-## Instructions
-
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
-
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
-
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
-
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## Included files
+1. HTML
+2. CSS
+3. JavaSript
 
 ## Contributing
 
