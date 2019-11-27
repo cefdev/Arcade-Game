@@ -1,9 +1,10 @@
 // Canva's blocks width and height
-let blockWidth, blockHeight, canvasWidth, canvasHeight;
+let blockWidth, blockHeight, canvasWidth, canvasHeight, score;
 blockWidth = 101;
 blockHeight = 83;
 canvasWidth = 505;
 canvasHeight = 606;
+score = 0;
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
@@ -11,8 +12,8 @@ var Enemy = function(x, y) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    this.width = 60;
-    this.height = 90;
+    this.width = 100;
+    this.height = 70;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -29,7 +30,21 @@ Enemy.prototype.update = function(dt) {
     } else {
         this.x += (200 * dt);
     }
+
+    // Check collision between Enemy and Player
+    if (collision(player.x, player.y, player.width, player.height, this.x, this.y, this.width, this.height)) {
+        // Reset player's position
+        player.x = 205;
+        player.y = 375;
+        // Subtract 1 from score
+        if (score > 0) {
+            score --;
+        }
+        // Update score UI
+        document.querySelector(".score").textContent = score;
+    }
 };
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -44,12 +59,20 @@ var Player = function(x, y) {
     this.x = x;
     this.y = y;
     this.width = 60;
-    this.height = 90;
+    this.height = 70;
     this.sprite = 'images/char-horn-girl.png';
 };
 
 Player.prototype.update = function(dt) {
-
+    if (player.y <= 30) {
+        // Add +1 to score
+        score ++;
+        // Update score UI
+        document.querySelector(".score").textContent = score;
+        // Reset player's position
+        player.x = 205;
+        player.y = 375;
+    }
 };
 
 Player.prototype.render = function()  {
@@ -71,10 +94,9 @@ Player.prototype.handleInput = function(route) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-const allEnemies = [60, 140 ,220].map((enemyPositionY, index) => {
+let allEnemies = [55, 130 ,220].map((enemyPositionY, index) => {
     return new Enemy((-100 * (index + 1)), enemyPositionY)
 });
-
 
 const player = new Player(205, 375);
 
@@ -91,3 +113,26 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Check collision between player and enemies
+function collision(playerX, playerY, playerWidth, playerHeight, enemyX, enemyY, enemyWidth, enemyHeight) {
+    return (Math.abs(playerX - enemyX) * 2 < playerWidth + enemyWidth) && (Math.abs(playerY - enemyY) * 2 < playerHeight + enemyHeight)
+}
+
+// Restart the game
+document.querySelector(".restart").addEventListener('click', () => {
+    // Reset score to 0
+    score = 0;
+
+    // Update score UI
+    document.querySelector(".score").textContent = score;
+
+    // Reset player's position
+    player.x = 205;
+    player.y = 375;
+
+    // Reset Enemies
+    allEnemies = [55, 130 ,220].map((enemyPositionY, index) => {
+        return new Enemy((-100 * (index + 1)), enemyPositionY)
+    });
+})
