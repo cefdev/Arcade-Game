@@ -1,5 +1,7 @@
 # Classic Arcade Game Clone Project
 
+## DEMO
+Check it [Live](https://cefdev-arcadegame.netlify.app/)
 
 ## How to play
 1. Open the index.html in your browser.
@@ -14,5 +16,4 @@
 3. JavaSript
 
 ## Contributing
-
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
